@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from apps.dds.form import CashFlowRecordForm
 from apps.dds.models import (
     Status,
     TransactionType,
@@ -9,8 +10,39 @@ from apps.dds.models import (
 )
 
 
-admin.site.register(Status)
-admin.site.register(TransactionType)
-admin.site.register(Category)
-admin.site.register(SubCategory)
-admin.site.register(CashFlowRecord)
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+    search_fields = ("name",)
+
+
+@admin.register(TransactionType)
+class TransactionTypeAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+    search_fields = ("name",)
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "type")
+    list_filter = ("type",)
+    search_fields = ("name",)
+
+
+@admin.register(SubCategory)
+class SubCategoryAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "category")
+    list_filter = ("category",)
+    search_fields = ("name",)
+
+
+@admin.register(CashFlowRecord)
+class CashFlowRecordAdmin(admin.ModelAdmin):
+    form = CashFlowRecordForm
+    list_display = ("created_at", "status", "type", "category", "subcategory", "amount", "comment")
+    list_filter = ("created_at", "status", "type", "category", "subcategory")
+    search_fields = ("comment",)
+    date_hierarchy = "created_at"
+
+    class Media:
+        js = ("admin/js/filter_subcategories.js",)

@@ -32,12 +32,14 @@ class TransactionType(BaseModel):
 
 class Category(BaseModel):
     name = models.CharField(max_length=127, unique=True)
+    type = models.ForeignKey(TransactionType, on_delete=models.CASCADE, related_name="categories")
 
     class Meta:
         db_table = "categories"
 
     def __str__(self):
-        return self.name
+        return f"{self.type.name} → {self.name}"
+
 
 
 class SubCategory(BaseModel):
