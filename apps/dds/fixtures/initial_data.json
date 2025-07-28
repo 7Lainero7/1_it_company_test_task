@@ -1,0 +1,106 @@
+[
+  {
+    "model": "dds.status",
+    "pk": 1,
+    "fields": {
+      "name": "Доход",
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.status",
+    "pk": 2,
+    "fields": {
+      "name": "Расход",
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.transactiontype",
+    "pk": 1,
+    "fields": {
+      "name": "Зарплата",
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.transactiontype",
+    "pk": 2,
+    "fields": {
+      "name": "Покупки",
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.category",
+    "pk": 1,
+    "fields": {
+      "name": "Основная зарплата",
+      "type": 1,
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.category",
+    "pk": 2,
+    "fields": {
+      "name": "Продукты",
+      "type": 2,
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.subcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Оклад",
+      "category": 1,
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.subcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Фрукты",
+      "category": 2,
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.cashflowrecord",
+    "pk": 1,
+    "fields": {
+      "status": 1,
+      "type": 1,
+      "category": 1,
+      "subcategory": 1,
+      "amount": "5000.00",
+      "comment": "Зарплата за июль",
+      "created_at": "2025-07-28T10:00:00Z",
+      "updated_at": "2025-07-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "dds.cashflowrecord",
+    "pk": 2,
+    "fields": {
+      "status": 2,
+      "type": 2,
+      "category": 2,
+      "subcategory": 2,
+      "amount": "350.00",
+      "comment": "Купил фрукты",
+      "created_at": "2025-07-28T12:00:00Z",
+      "updated_at": "2025-07-28T12:00:00Z"
+    }
+  }
+]
