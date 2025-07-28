@@ -58,7 +58,7 @@ class CashFlowRecord(BaseModel):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     amount = models.DecimalField(max_digits=15, decimal_places=2)
-    comment = models.TextField(blank=True)
+    comment = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = "cash_flow_records"

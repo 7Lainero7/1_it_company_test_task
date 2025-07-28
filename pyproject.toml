@@ -12,19 +12,14 @@ force_grid_wrap = 0
 use_parentheses = true
 ensure_newline_before_comments = true
 
-[tool.flake8]
-max-line-length = 88
-extend-ignore = [
-    "E203",  # Whitespace before ':', conflicts with black
-    "W503",  # Line break before binary operator, also conflicts with black
-]
+[tool.ruff]
+line-length = 88
 exclude = [
+    ".venv",
+    "venv",
+    "env",
     "__pycache__",
     "migrations",
-    "venv",
-    ".venv",
-    "env",
-    ".env",
     "manage.py",
-    "settings.py",
+    "settings.py"
 ]
