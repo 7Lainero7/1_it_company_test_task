@@ -1,11 +1,16 @@
-from django.core.exceptions import ValidationError
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import CashFlowRecord, Category, SubCategory
 
 
 class CategorySelect(forms.Select):
-    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
-        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+    def create_option(
+        self, name, value, label, selected, index, subindex=None, attrs=None
+    ):
+        option = super().create_option(
+            name, value, label, selected, index, subindex, attrs
+        )
         if value:
             try:
                 category_id = value.value
@@ -17,8 +22,12 @@ class CategorySelect(forms.Select):
 
 
 class SubCategorySelect(forms.Select):
-    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
-        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+    def create_option(
+        self, name, value, label, selected, index, subindex=None, attrs=None
+    ):
+        option = super().create_option(
+            name, value, label, selected, index, subindex, attrs
+        )
         if value:
             try:
                 subcategory_id = value.value
@@ -27,16 +36,15 @@ class SubCategorySelect(forms.Select):
             except SubCategory.DoesNotExist:
                 pass
         return option
-  
+
 
 class CashFlowRecordForm(forms.ModelForm):
     category = forms.ModelChoiceField(
-        queryset=Category.objects.select_related("type"),
-        widget=CategorySelect
+        queryset=Category.objects.select_related("type"), widget=CategorySelect
     )
     subcategory = forms.ModelChoiceField(
         queryset=SubCategory.objects.select_related("category"),
-        widget=SubCategorySelect
+        widget=SubCategorySelect,
     )
 
     class Meta:
@@ -50,9 +58,13 @@ class CashFlowRecordForm(forms.ModelForm):
         type_ = cleaned_data.get("type")
 
         if subcategory and category and subcategory.category != category:
-            raise ValidationError({"subcategory": "Подкатегория не принадлежит выбранной категории."})
+            raise ValidationError(
+                {"subcategory": "Подкатегория не принадлежит выбранной категории."}
+            )
 
         if category and type_ and category.type != type_:
-            raise ValidationError({"category": "Категория не принадлежит выбранному типу."})
+            raise ValidationError(
+                {"category": "Категория не принадлежит выбранному типу."}
+            )
 
         return cleaned_data

@@ -32,7 +32,9 @@ class TransactionType(BaseModel):
 
 class Category(BaseModel):
     name = models.CharField(max_length=127, unique=True)
-    type = models.ForeignKey(TransactionType, on_delete=models.CASCADE, related_name="categories")
+    type = models.ForeignKey(
+        TransactionType, on_delete=models.CASCADE, related_name="categories"
+    )
 
     class Meta:
         db_table = "categories"
@@ -41,13 +43,14 @@ class Category(BaseModel):
         return f"{self.type.name} → {self.name}"
 
 
-
 class SubCategory(BaseModel):
     name = models.CharField(max_length=127)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="subcategories"
+    )
 
     class Meta:
-        unique_together = ('name', 'category')
+        unique_together = ("name", "category")
         db_table = "subcategories"
 
     def __str__(self):

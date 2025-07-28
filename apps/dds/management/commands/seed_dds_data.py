@@ -1,8 +1,15 @@
 import random
+
 from django.core.management.base import BaseCommand
 from faker import Faker
-from apps.dds.models import Status, TransactionType, Category, SubCategory, CashFlowRecord
 
+from apps.dds.models import (
+    CashFlowRecord,
+    Category,
+    Status,
+    SubCategory,
+    TransactionType,
+)
 
 fake = Faker("ru_RU")
 
@@ -11,7 +18,9 @@ class Command(BaseCommand):
     help = "Seed random CashFlowRecord data"
 
     def add_arguments(self, parser):
-        parser.add_argument("--count", type=int, default=20, help="Number of records to create")
+        parser.add_argument(
+            "--count", type=int, default=20, help="Number of records to create"
+        )
 
     def handle(self, *args, **options):
         count = options["count"]
@@ -37,7 +46,9 @@ class Command(BaseCommand):
             category = random.choice(valid_categories)
 
             # Найдём подкатегории, подходящие к категории
-            valid_subcategories = [s for s in subcategories if s.category_id == category.id]
+            valid_subcategories = [
+                s for s in subcategories if s.category_id == category.id
+            ]
             if not valid_subcategories:
                 continue
 
@@ -49,7 +60,7 @@ class Command(BaseCommand):
                 category=category,
                 subcategory=subcategory,
                 amount=round(random.uniform(100, 10000), 2),
-                comment=fake.sentence(nb_words=6)
+                comment=fake.sentence(nb_words=6),
             )
             created += 1
 
