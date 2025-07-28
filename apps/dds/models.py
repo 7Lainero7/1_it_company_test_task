@@ -13,6 +13,9 @@ class BaseModel(models.Model):
 class Status(BaseModel):
     name = models.CharField(max_length=63, unique=True)
 
+    class Meta:
+        db_table = "statuses"
+
     def __str__(self):
         return self.name
 
@@ -20,12 +23,18 @@ class Status(BaseModel):
 class TransactionType(BaseModel):
     name = models.CharField(max_length=63, unique=True)
 
+    class Meta:
+        db_table = "transactions_types"
+
     def __str__(self):
         return self.name
 
 
 class Category(BaseModel):
     name = models.CharField(max_length=127, unique=True)
+
+    class Meta:
+        db_table = "categories"
 
     def __str__(self):
         return self.name
@@ -37,6 +46,7 @@ class SubCategory(BaseModel):
 
     class Meta:
         unique_together = ('name', 'category')
+        db_table = "subcategories"
 
     def __str__(self):
         return f"{self.category.name} → {self.name}"
@@ -50,6 +60,8 @@ class CashFlowRecord(BaseModel):
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     comment = models.TextField(blank=True)
 
+    class Meta:
+        db_table = "cash_flow_records"
+
     def __str__(self):
         return f"{self.custom_date or self.created_at} — {self.amount} ₽"
-
