@@ -1,9 +1,41 @@
 from django.core.exceptions import ValidationError
 from django import forms
-from .models import CashFlowRecord
+from .models import CashFlowRecord, Category, SubCategory
 
+
+class CategorySelect(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        if value:
+            try:
+                category = Category.objects.get(pk=value)
+                option["attrs"]["data-type-id"] = category.type_id
+            except Category.DoesNotExist:
+                pass
+        return option
+
+
+class SubCategorySelect(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        if value:
+            try:
+                subcategory = SubCategory.objects.get(pk=value)
+                option["attrs"]["data-category-id"] = subcategory.category_id
+            except SubCategory.DoesNotExist:
+                pass
+        
 
 class CashFlowRecordForm(forms.ModelForm):
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.select_related("type"),
+        widget=CategorySelect
+    )
+    subcategory = forms.ModelChoiceField(
+        queryset=SubCategory.objects.select_related("category"),
+        widget=SubCategorySelect
+    )
+
     class Meta:
         model = CashFlowRecord
         fields = "__all__"
