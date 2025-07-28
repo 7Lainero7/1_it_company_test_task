@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.sqlite3
+*.log
+
+# Django
+*.db
+*.pot
+*.pyc
+*.mo
+*.coverage
+*.migrations/
+db.sqlite3
+
+# Environment
+.env
+venv/
+.env.*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Static/media
+/staticfiles/
+/media/
+
+# Node (если используешь npm/yarn для фронта)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Docker
+*.pid
+*.sock
+*.tar
+*.gz
+*.bak
+*.tmp
+*.log
+docker-compose.override.yml
