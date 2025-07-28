@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 from apps.dds.models import Status, TransactionType, Category, SubCategory, CashFlowRecord
 
+
 fake = Faker("ru_RU")
 
 
@@ -20,7 +21,7 @@ class Command(BaseCommand):
         subcategories = list(SubCategory.objects.select_related("category"))
 
         if not (statuses and types and categories and subcategories):
-            self.stdout.write(self.style.ERROR("Not enough data: make sure Status, TransactionType, Category, and SubCategory are populated"))
+            self.stdout.write(self.style.ERROR("Not enough data"))
             return
 
         created = 0
@@ -52,4 +53,4 @@ class Command(BaseCommand):
             )
             created += 1
 
-        self.stdout.write(self.style.SUCCESS(f"✅ Created {created} CashFlowRecord(s)"))
+        self.stdout.write(self.style.SUCCESS(f"Created {created} CashFlowRecord(s)"))

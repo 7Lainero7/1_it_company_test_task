@@ -8,7 +8,8 @@ class CategorySelect(forms.Select):
         option = super().create_option(name, value, label, selected, index, subindex, attrs)
         if value:
             try:
-                category = Category.objects.get(pk=value)
+                category_id = value.value
+                category = Category.objects.get(pk=category_id)
                 option["attrs"]["data-type-id"] = category.type_id
             except Category.DoesNotExist:
                 pass
@@ -20,11 +21,13 @@ class SubCategorySelect(forms.Select):
         option = super().create_option(name, value, label, selected, index, subindex, attrs)
         if value:
             try:
-                subcategory = SubCategory.objects.get(pk=value)
+                subcategory_id = value.value
+                subcategory = SubCategory.objects.get(pk=subcategory_id)
                 option["attrs"]["data-category-id"] = subcategory.category_id
             except SubCategory.DoesNotExist:
                 pass
-        
+        return option
+  
 
 class CashFlowRecordForm(forms.ModelForm):
     category = forms.ModelChoiceField(

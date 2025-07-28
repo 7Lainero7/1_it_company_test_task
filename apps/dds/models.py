@@ -66,4 +66,4 @@ class CashFlowRecord(BaseModel):
         db_table = "cash_flow_records"
 
     def __str__(self):
-        return f"{self.custom_date or self.created_at} — {self.amount} ₽"
+        return f"{self.updated_at or self.created_at} — {self.amount} ₽"
