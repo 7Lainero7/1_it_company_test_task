@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 
 from apps.dds.form import CashFlowRecordForm
 from apps.dds.models import (
@@ -50,13 +49,13 @@ class CashFlowRecordAdmin(admin.ModelAdmin):
         "amount",
         "comment",
     )
-    autocomplete_fields = ['category', 'subcategory']
+    autocomplete_fields = ["category", "subcategory"]
     list_filter = ("created_at", "status", "type", "category", "subcategory")
     search_fields = ("comment",)
     date_hierarchy = "created_at"
 
     class Media:
         js = (
-            'admin/js/vendor/jquery/jquery.min.js',
-            'admin/js/filter_subcategories.js',
+            "admin/js/vendor/jquery/jquery.min.js",
+            "admin/js/filter_subcategories.js",
         )
