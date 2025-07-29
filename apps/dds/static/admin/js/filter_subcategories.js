@@ -1,40 +1,61 @@
-(function($) {
-    $(document).ready(function() {
-        const typeField = $('#id_type');
-        const categoryField = $('#id_category');
-        const subcategoryField = $('#id_subcategory');
+document.addEventListener('DOMContentLoaded', function() {
+    const $ = django.jQuery || window.jQuery;
+    if (!$) return;
 
-        const allCategoryOptions = categoryField.find('option').clone();
-        const allSubcategoryOptions = subcategoryField.find('option').clone();
+    const typeField = $('#id_type');
+    const categoryField = $('#id_category');
+    const subcategoryField = $('#id_subcategory');
 
-        typeField.change(function() {
-            const selectedTypeId = $(this).val();
-            categoryField.empty();
+    // Кэшируем все опции
+    const allCategoryOptions = categoryField.find('option').clone();
+    const allSubcategoryOptions = subcategoryField.find('option').clone();
 
-            allCategoryOptions.each(function() {
-                const option = $(this);
-                const typeId = option.data('type-id');
+    // Валидация
+    $('form').on('submit', function(e) {
+        if (!typeField.val()) {
+            alert('Выберите тип операции!');
+            e.preventDefault();
+            return;
+        }
+        if (!categoryField.val()) {
+            alert('Выберите категорию!');
+            e.preventDefault();
+            return;
+        }
+    });
 
-                if (!typeId || typeId == selectedTypeId) {
-                    categoryField.append(option.clone());
-                }
-            });
+    // Фильтрация категорий по типу
+    typeField.on('change', function() {
+        const typeId = $(this).val();
+        categoryField.empty();
 
-            categoryField.trigger('change'); // обновить подкатегории
+        allCategoryOptions.each(function() {
+            const option = $(this);
+            const optionTypeId = option.data('type-id');
+
+            if (!optionTypeId || optionTypeId == typeId) {
+                categoryField.append(option.clone());
+            }
         });
 
-        categoryField.change(function() {
-            const selectedCategoryId = $(this).val();
-            subcategoryField.empty();
+        categoryField.trigger('change');
+    });
 
-            allSubcategoryOptions.each(function() {
-                const option = $(this);
-                const categoryId = option.data('category-id');
+    // Фильтрация подкатегорий по категории
+    categoryField.on('change', function() {
+        const categoryId = $(this).val();
+        subcategoryField.empty();
 
-                if (!categoryId || categoryId == selectedCategoryId) {
-                    subcategoryField.append(option.clone());
-                }
-            });
+        allSubcategoryOptions.each(function() {
+            const option = $(this);
+            const optionCategoryId = option.data('category-id');
+
+            if (!optionCategoryId || optionCategoryId == categoryId) {
+                subcategoryField.append(option.clone());
+            }
         });
     });
-})(django.jQuery);
+
+    // Инициализация при загрузке
+    typeField.trigger('change');
+});
