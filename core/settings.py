@@ -16,7 +16,7 @@ print(BASE_DIR)
 SECRET_KEY = getenv("SECRET_KEY", default="PimPimPamPam")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv("DEBUG", "False").lower() in ("true", "1", "yes")
+DEBUG = getenv("DEBUG", default="True").lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = getenv("ALLOWED_HOSTS", default="*").split(",")
 
