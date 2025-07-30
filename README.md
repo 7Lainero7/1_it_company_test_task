@@ -12,7 +12,7 @@
 git clone https://github.com/7Lainero7/1_it_company_test_task.git
 cd 1_it_company_test_task
 python -m venv .venv
-source .venv/Scripts/activate  # или .venv\bin\activate в linux
+.venv/Scripts/Activate.ps1  # или source .venv\bin\activate в linux
 pip install -r requirements.txt
 ```
 
